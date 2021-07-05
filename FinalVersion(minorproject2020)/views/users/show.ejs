@@ -1,0 +1,71 @@
+<%- include("../partials/header") %>
+
+<div id="usershow" class="container">
+	<div class="row text-center">
+		<div class= "col-lg-12">
+			 <div class="row border-bottom pb-3 info">
+				<div class="col-md-4 my-3 text-center">
+					<div class="container ">
+					   <img src="<%= user.avatar %>" alt="user profile image" height=250 width=250 class="  rounded-circle" >
+					</div>
+				</div>
+				<div class="col-md-8 py-4 text-center">
+					<h1><%= user.firstName + " " + user.lastName %></h1>
+					 <h6 style="margin-top:-10px; color:black;"><strong><em>(<%=user.username%>)</em></strong></h6>
+					<p><strong class="pl-1">Email : </strong><a href="mailto:<%= user.email %>" style="color:black;"><%= user.email %></a></p>
+					<p>
+						
+					</p>
+					<p class="px-5 text-center" ><strong>About : </strong><%-user.about%></p>
+					<!-- <p><strong class="pl-1">Lives in: </strong></p>
+					<p><strong class="pl-1">From: </strong></p> -->
+					
+				</div>
+				
+				 <div class="col-lg-12">
+					  
+					 
+				 <%if(currentUser && currentUser._id.equals(user.id)|| currentUser && currentUser.isAdmin){ %>
+				<form >
+					<a  class="float-right mr-4 " href="/users/<%= user._id %>/edit" style='color:white;'>Edit Profile</a>
+			     </form>
+				 </div>
+				<% }%>
+		   </div>
+		</div>
+	   
+		
+	   
+	    <div id="userpost" class="container col-md-12 m-auto">
+		    
+		    <div class="row text-center mt-4" id="campground-grid">
+             <% campgrounds.slice().reverse().forEach(function(campground){ %>
+            <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+                <div class="card usercardShadow ">
+                  <a href="/campgrounds/<%= campground._id %>" data-toggle="tooltip" title="<%=campground.name%>"><img class="card-img-top img-fluid posts2" src="<%= campground.image %>" alt="<%= campground.name %> Responsive image"></a>
+					
+                  <!-- <div class="card-body">
+                    <h5 class="card-title">< campground.name %></h5> 
+                     <a href="/campgrounds/< campground_id " class="btn btn-primary btn-sm">More Info</a> 
+                  </div> -->
+                </div>
+            </div>
+        <% }); %>
+      </div>
+                     <%if(campgrounds.length<1){%> 
+			             <div class="mt-5 mx-3 text-center" >
+							 
+							 <%if(currentUser && currentUser._id.equals(user.id)){ %>
+							 <a href="/campgrounds/new"><i class="fas fa-plus" style="width:2rem;"></i></a>
+							 <p class="mt-3" style="color:black;">Add new Post</p>
+							 <%} else {%> 
+							 <p> No Post Found</p>
+							 <% } %>
+			             </div>        
+			         <%}%>
+		         
+		</div>
+    </div>
+
+
+<%- include("../partials/footer") %>

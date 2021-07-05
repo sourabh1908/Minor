@@ -1,0 +1,113 @@
+<%- include("../partials/header") %>
+ <div  id="color">
+      <div id="leftside" class="d-none d-lg-block border-right px-3 " style="">
+		   <div id="side">
+			  <div class=" mt-3 " >
+			    <img class="card-img-top rounded-circle p-3" src="<%= currentUser.avatar%>"  height=250 width=250 >
+				<div class="text-center ">
+					<h3 style="color:#075E54;"><%= currentUser.firstName%> <%=currentUser.lastName%></h3>
+					<p style="color:#075E54 ;" >(<%=currentUser.username%>)</p>
+				</div>
+				<div class="text-center mt-5">
+					<form action="/campgrounds" method="GET" class="form-inline mx-4 mt-5 postsearchform" id="campground-search" style="width:85%;">
+					   <div class="form-group">
+						 <input type="text" name="search" placeholder="Search Post" class="form-control text-center">
+					   </div>
+					</form>
+					<p  class="mt-5" style="color:red;">
+						<!-- This Section is yet to be Done -->
+					</p>
+				</div>
+		     </div>
+		   </div>
+	   </div>
+  <div  id="content" class="container">
+	<div class="row">
+		  <div class=" col-sm-12 col-md-12 " style="">
+			     <header class="jumbotron mt-3">
+					<h1 style="font-family: 'Acme', sans-serif; 
+							   font-size:50px; 
+							   color:#075E54;">
+						Welcome To Talkhut!
+					 </h1>
+					<p style="font-family: 'Caveat', cursive; font-size:25px; color:#075E54;">This is our minor project</p>
+					<p>
+					
+					</p>
+					<form action="/campgrounds" method="GET" class="form-inline d-md-none" id="campground-search">
+					   <div class="form-group">
+						 <input type="text" name="search" placeholder="Search Post" class="form-control">
+					   </div>
+					</form>
+	              </header>
+	            <% if(noMatch !== null) { %>
+	              <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+					 <div class="col-md-12">
+						 <h3><%= noMatch %></h3>
+					 </div>
+			      </div>	
+		        <% } %>
+			    <% campgrounds.slice().reverse().forEach(function(campground){ %>
+                 <div class="card mb-4 cardShadow" >
+                    <img class="card-img-top posts" src="<%= campground.image %>" alt="<%= campground.name %>">
+                      <div class="card-body">
+						  <div style="padding-bottom: 10px;">
+                        <form action="/campgrounds/<%= campground._id %>/like" method="POST">
+                            <div id="likes" class="btn-group d-flex" role="group">
+                                <% if (currentUser && campground.likes.some(function (like) {
+                                    return like.equals(currentUser._id)
+                                })) { %>
+								<!-- if LIKED -->
+								<button class="btn btn-danger btn-sm ">
+									<i class="far fa-heart">
+									</i>
+                                </button>
+                                
+                                <% } else { %>
+								<!-- if NOT liked -->
+								  <button class="btn btn-outline-danger btn-sm ">
+									<i class="far fa-heart">
+									</i>
+                                </button>
+                                
+                                <% } %>
+								 <a style="margin-left:10px;"><strong><%= campground.likes.length %> Likes</strong>
+                                 </a>
+                            </div>
+                        </form>
+							 
+					</div>
+                        <!-- <h5 class="card-title">< campground.name %></h5> -->
+						  <!-- <p style="color:#55606b;"><campground.description.substring(0, 100) %>...</p> -->
+                        <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary ">More Info</a>
+                     </div>
+                 </div>
+                 <% }); %>    
+		   </div>
+		
+	 </div>
+	  <div class="row container-fluid text-center mt-5">
+		  <div class="col-lg-12">
+			  <footer class="footer">
+               <div class="">
+                <p class="text-muted">&copy; Talkhut 2020 | <a href="/">Home</a> | <a href="/campgrounds/new">New</a></p>
+              </div>
+         </footer>
+		 </div>
+     </div>
+	
+</div> 
+</div>
+
+
+
+
+ <!-- Dependencies for Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>      
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ -->
+</body>
+</html>  

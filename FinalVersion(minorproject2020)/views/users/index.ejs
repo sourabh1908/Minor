@@ -1,0 +1,31 @@
+<%- include("../partials/header") %>
+
+     
+           <% if(noMatch !== null) { %>
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+		 <div class="col-md-12">
+             <h3><%= noMatch %></h3>
+         </div>
+		  <% } else { %>
+       
+<main role="main" class="container ">
+      
+      <div class="my-3 p-3 bg-white rounded box-shadow border">
+		  <h2 class="border-bottom border-gray pb-2 mb-0">Found Users</h2>
+		  <div class="mt-5">
+			   <% users.forEach(function(user){ %>
+				<div class="media text-muted  pt-2 border rounded ">
+					 <img  src="<%= user.avatar %>" alt="" class="ml-2 mb-2 rounded" height="50px" width="50px">
+					 <p class="pull-right">
+					    <strong class="d-block text-gray-dark ml-2"><a href="/users/<%= user._id%>"> <%= user.firstName %>  <%= user.lastName%> </a></strong>
+					 </p>
+				</div>
+         <% }); %>
+		  </div>
+        
+        
+      </div>
+</main>	
+		 <% } %>
+
+<%- include("../partials/footer") %>
